@@ -1,11 +1,11 @@
 #include "funcoes.h"
 
-// void menu(){
-//     printf("1)Inserir");
-//     printf("2)Remover");
-//     printf("3)Imprimir");
-//     printf("4)Sair");
-// }
+void menu(){
+    printf("1)Inserir\n");
+    printf("2)Remover\n");
+    printf("3)Imprimir\n");
+    printf("4)Sair\n");
+}
 
 // void inseri(){
 //     int reg[] = {10,2,7,5,3,9,16,4,11,1,6,23,14};

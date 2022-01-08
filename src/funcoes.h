@@ -10,9 +10,9 @@
 // remove
 // imprimi
 
-// void menu();
+void menu();
 // void inseri();
 // void remove();
 // void imprimir();
-void criandoArquivos();
+
 #endif
