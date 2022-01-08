@@ -5,13 +5,9 @@
 
 #include <string.h>
 
-// menu
-// insere
-// remove
-// imprimi
-
 void menu();
-// void inseri();
+void inicializa();
+void inseri();
 // void remove();
 // void imprimir();
 

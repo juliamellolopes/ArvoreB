@@ -2,6 +2,7 @@
 
 int main(){
 	int opc;
+	inicializa();
 
 	do{
 		menu();
