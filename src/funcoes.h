@@ -4,11 +4,10 @@
 #include "btree.h"
 
 #include <string.h>
+#include <stdio.h>
 
-void menu();
-void inicializa();
-void inseri();
-// void remove();
-// void imprimir();
+void inicializa(Pagina **btree, Record r);
+void inseri(Pagina **btree, Record r, int cpf);
+void imprimir(Pagina **btree, Record r,int cpf);
 
 #endif

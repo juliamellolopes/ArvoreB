@@ -1,51 +1,72 @@
 #include "funcoes.h"
+ 
 
-void menu(){
-    printf("1)Inserir\n");
-    printf("2)Remover\n");
-    printf("3)Imprimir\n");
-    printf("4)Sair\n");
+void inicializa(Pagina **btree, Record r){
+    char aux[100];
+	char aux1[100];
+    for(int i = 1; i < 1001; i+=100){
+		r.key = i;
+		r.arq = (char *)malloc(40*sizeof(char));
+		strcpy(aux,"Arquivos/Arquivo");
+		r.limit = i+99;
+		sprintf(aux1,"%d",r.key);
+		strcat(aux, aux1);
+		strcat(aux, "-");
+		sprintf(aux1,"%d",r.limit);
+		strcat(aux, aux1);
+		strcpy(r.arq, aux);
+		strcat(r.arq, ".txt");
+		Insere(btree, r);
+	}
 }
 
-void inicializa(){
-    Record r;
-  	Pagina *btree = CreateBTree();
-    int reg[] = {1,1000};
-
-  	for(int i=0; i<2; i++){
-    	r.key = reg[i];
-    	Insere(&btree, r);
-  	}
-    // Imprime(&btree, 0);
+void inseri(Pagina **btree, Record r, int cpf){
+    r.key = cpf;
+    Insere(btree, r);
 }
+                                                                                                                             
+void imprimir(Pagina **btree, Record r,int cpf){
+	FILE *file;
+    int c;
+    char linha[1000], idade[10],nome[15];
+    const char s[] = ",";
+    char *token;
+    char *result;
 
- void inseri(){
-	// FILE *file;
-    // int c;
-    // char cpf[1000],nome[24], idade[10];
+    r.key = cpf;
+	Pesquisa(*btree,&r);
 
-    // if ((file = fopen("Arquivos/Arquivo1.txt", "r")) == NULL){
-	// 	printf("\nErro ao abrir o arquivo!");
-	// 	exit(1);
-	// }
+    if ((file = fopen(r.arq, "r")) == NULL){
+        printf("\nErro ao abrir o arquivo!");
+        exit(0);
+    }
 
-	// while (!feof(file)){
-	// 	for(int i=0; i<1; i++){
-    //         fscanf(file, "%s[^,]%s[^,]%s", nome, idade, cpf);
-    //         c = atoi(fgets(cpf,1000, file));
-    //         r.key = c;
-    //         Insere(&btree, r);
-  	//     } 
-	// }
-    // fclose(file);
-    
+    while (!feof(file)){
+        result = fgets(linha, 1000, file);
+
+        if (result){
+            token = strtok(linha, s);
+            int i = 0;
+            while( token != NULL ){
+                switch (i){
+                    case 0:
+                        strcpy(nome, token);
+                        break;
+                    
+                    case 1:
+                        strcpy(idade, token);
+                        break;
+                    case 2:
+                        if(i == 2){
+                            c = atoi(token);
+                            if(cpf == c) printf("Nome: %s\nIdade: %sanos\nCpf:%d\n", nome, idade,cpf);  
+                        }
+                        break;	
+                }
+                token = strtok(NULL, s);
+                i++;
+            }
+        }   
+    }   
+    fclose(file);
 }
-
-// void remove(){
-// }
-                                                                                                                            
-// void imprimir(){
-
-    
-//    Imprime(&btree, 0);
-// }

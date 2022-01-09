@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "btree.h": "c"
+        "btree.h": "c",
+        "funcoes.h": "c"
     }
 }

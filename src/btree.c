@@ -10,10 +10,20 @@ void Pesquisa(Pagina *p, Record *r){
 
   if(p == NULL){
     printf("[ERROR]: Node not found!");
+    r->key = -1;
     return;
   }
 
-  while (i < p->n && r->key > p->r[i-1].key) i++;
+  while (i < p->n && r->key > p->r[i-1].key){
+    if (r->key >= p->r[i-1].key){ 
+      if (r->key <= p->r[i-1].limit){ 
+        // printf("%d:%d\n",p->r[i-1].key, p->r[i-1].limit);
+        r->arq = p->r[i-1].arq;
+        return;
+      }
+    }
+    i++;
+  } 
 
   if (r->key == p->r[i-1].key){ 
     *r = p->r[i-1];
@@ -284,7 +294,7 @@ void Imprime(Pagina **p, int level){
   
   printf("Nivel %d: ", level);
   for (i = 0; i < (*p)->n; i++)
-    printf("%d ",(*p)->r[i].key);
+    printf("(%d-%d: %s) ",(*p)->r[i].key, (*p)->r[i].limit, (*p)->r[i].arq);
   putchar('\n');
   level++;
 
