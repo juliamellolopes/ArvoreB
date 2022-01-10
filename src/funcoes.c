@@ -21,8 +21,42 @@ void inicializa(Pagina **btree, Record r){
 }
 
 void inseri(Pagina **btree, Record r, int cpf){
+	FILE *file;
+    int c;
+    char linha[1000];
+    const char s[] = ",";
+    char *token;
+    char *result;
+
     r.key = cpf;
-    Insere(btree, r);
+	Pesquisa(*btree,&r);
+
+    if ((file = fopen(r.arq, "r")) == NULL){
+        printf("\nErro ao abrir o arquivo!");
+        exit(0);
+    }
+
+    while (!feof(file)){
+        result = fgets(linha, 1000, file);
+
+        if (result){
+            token = strtok(linha, s);
+            int i = 0;
+            while( token != NULL ){
+                if(i == 2){
+                    c = atoi(token);
+                    if(cpf == c){
+                        r.key = cpf;
+                        Insere(btree, r);
+                        printf("\nInsersao realizada com sucesso!\n");
+                    }
+                }
+                token = strtok(NULL, s);
+                i++;
+            }
+        }   
+    }   
+    fclose(file);    
 }
                                                                                                                              
 void imprimir(Pagina **btree, Record r,int cpf){
